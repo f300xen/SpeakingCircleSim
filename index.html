@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<head>
+    <title>
+        Speaking Circle Simulator
+    </title>
+    <link rel="icon" href="https://gilkalai.files.wordpress.com/2017/09/dice.png">
+    <meta property="og:title" content="Hearthstone™">
+    <meta property="og:image" content="https://d19y2ttatozxjp.cloudfront.net/wp-content/uploads/2020/11/30222128/SpeakingCircleRender.jpg">
+    <meta property="og:description" content="Does the new Site suck? The answer may surprise you!">
+
+    <style>
+        body {
+            background-color: black;
+        }
+
+        .invoke {
+            display: flex;
+        }
+
+        .card {
+            width: calc(.15vh * 382 / 3);
+            height: calc(.15vh * 606 / 3);
+            background-size: 100% 100%;
+            cursor: pointer;
+        }
+
+        .button {
+            width: calc(.15vh * 606 / 3 - 2rem);
+            padding: calc(.15vh * 606 / 3 / 2 - .5em - 1rem) 0;
+            border: 1rem solid white;
+            color: white;
+            font-weight: 700;
+            font-size: 200%;
+            font-family: arial;
+            text-align: center;
+            border-radius: 1rem;
+            margin-left: 2rem;
+            cursor: pointer;
+            transition: .2s all;
+        }
+
+        .button:hover {
+            background-color: rgb(51, 51, 51);
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        var cards = ["Kaleb's Favor", "Silence", "Oasis Sanctuary", "Rolant's Favor", "Eilyn's Favor", "Vara's Favor", "Devouring Shadow", "Flame Blast", "Light the Fuse", "Torch", "Temper", "Ruin", "Rampage", "Song of War", "Piercing Shot", "Assembly Line", "Rally", "Water of Life", "Slow", "Excavate", "Predator's Instinct", "Unlock Potential", "Twinning Ritual", "Teleport", "Secret Pages", "Accelerate", "Synchronized Strike", "Dispel", "Decay", "Inspire", "Finest Hour", "Protect", "Detain", "Reinforce", "Rebuke", "Vanquish", "Privilege of Rank", "Trail Stories", "Unstable Form", "Levitate", "Static Bolt", "Herald's Song", "Lightning Strike", "Backlash", "Violent Gust", "Lightning Storm", "Second Sight", "Flash Freeze", "Polymorph", "Scheme", "Mirror Image", "Wisdom of the Elders", "Dark Return", "Suffocate", "Sabotage", "Pilfer", "Ghostform", "Rapid Shot", "Devour", "Madness", "Annihilate", "Torrent of Spiders", "Plague", "Execute", "Safe Return", "Stand Together", "Call the Ancients", "Accelerated Evolution", "Haunting Scream", "Combust", "Treachery", "Seek Power", "Daze", "Alchemical Blast", "Refresh", "Find the Way", "On the Hunt", "Pummel", "Grenade", "Hipshot", "Envelop", "Forgotten Find", "Sandstorm", "Xenan Initiation", "Strength of Many", "Tinker", "Weather the Storm", "Dragonbreath", "Mating Call", "Trailblaze", "Talon Dive", "Swear Vengeance", "Scare", "Threaten", "Spur On", "Trigger-Happy", "Extract", "Purify", "Kaleb's Choice", "Rockslide", "Bloodcall Invocation", "Vara's Choice", "Banish", "Bring Down", "Eilyn's Choice", "Slay", "Reunite", "Kaleb's Intervention", "Into the Furnace", "Hoof Slash", "Purge the Darkness", "Hesitate", "Talir's Intervention", "Twilight Hunt", "Accelerated Impact", "Ask for Directions", "Disjunction", "Lastlight Infusion", "Rolant's Intervention", "Curfew Enforcement", "Reinvigorate", "Showdown", "Eilyn's Intervention", "Jump Kick", "Snow Pelting", "Darkbolt", "Strategize", "Unseal", "Vara's Intervention", "Corrupt", "Infused Strike", "Sleeping Draught", "Devastating Setback", "Shush", "Feed the Flames", "Light 'em Up", "Mindfire", "Consuming Flames", "Trick Shot", "Honor the Ancestors", "Manufacture", "Won't Be Pretty", "Meditation", "Randori", "Training Ground", "Last Rites", "Deft Strike", "Wurmcalling", "Harmless Question", "Lingering Influence", "Sharpened Reflex", "Arcane Defense", "Bar the Gates", "Barricade", "Encouragement", "Auric Herdward", "Grit", "Saddle Up", "Gift of Battle", "Savage Denial", "Shiver", "Substitute", "Gruanform", "Huddle Together", "Read the Stars", "Tend the Flock", "Torrential Downpour", "Aerial Battle", "Entangling Vines", "Harbinger's Bite", "Abduct", "Cull the Deck", "Lock Horns", "Afterimage", "Sporebreath", "Ijin's Choice", "Unfinished Business", "Rindra's Choice", "Petition", "Disrupt", "Melt Down", "Bottoms Up", "Conflagrate", "Plunder", "Gilded Flames", "Unearth the Past", "Be Gone", "Dissociate", "Sustaining Harp", "Awaken the Ages", "Endure", "Defiance", "Svetya's Bravery", "Barrel Through", "Fall Short", "Steely Resolve", "Frostwave", "Savagery", "Parry", "Storm Spiral", "Borrowed Violence", "Lethrai Lobotomy", "Mob Rule", "Scavenge", "Warlock's Brew", "Mug", "Honeypot", "Lost Scroll", "Back for More", "Mighty Strikes", "Ixtun Cargo", "Display of Honor", "Auralian Cargo", "Display of Knowledge", "Winchest Cargo", "Display of Ambition", "Jennev Cargo", "Display of Instinct", "Kerendon Cargo", "Display of Vision", "Brenn's Scrying", "Char", "Daring Maneuver", "Guns Blazing", "Slag", "Call to Arms", "Streets Aflame", "Tantrum", "Auralian Infestation", "Phase Out", "Potion of Alacrity", "Glimpse the Possibilities", "Sudden Stampede", "Blink", "Patience", "Perilous Research", "Search Party", "Swirl the Sands", "Flash Grenade", "Heist", "Isolate", "Reweave", "Touch of Grace", "Inner Might", "Kemmo's Blueprints", "Pristine Light", "Retribution", "Righteous Intent", "Fend Off", "Furnish", "Good Idea at the Time", "Swift Refusal", "Warning Jolt", "Ice Bolt", "Read the Runes", "Re-read", "Royal Decree", "Crashing Avalanche", "Remembrance", "Spiteful Strike", "Vicious Rumors", "Illicit Armament", "Unchecked Aggression", "Death Ripple", "Sinister Design", "Seek Answers", "Edict of Shavka", "Breath of Voprex", "Desperate Gambit", "Sol's Fury", "Draconic Ire", "Dragon Forge", "Funeral Pyre", "Reap", "Ark of Sol", "Mettle", "Chant to Grodov", "Unmake", "Proselytize", "Draw Strength", "Press the Advantage", "Edict of Kodosh", "Lay Siege", "Stand Strong", "Storm of Feathers", "Icy Gaze", "Edict of Linrei", "Cruelty", "Greed's Reward", "Rainfall Accord", "Edict of Makkar", "Immortalize", "Malaise", "Reconnaissance", "Lethrai Dead Drop", "Waylay", "Kairos' Choice", "Rujin's Choice", "Geminon's Choice", "Voprex's Choice", "Aamri's Choice", "Sodi's Choice", "Worthy Cause", "Nahid's Choice", "Parul's Choice", "Eloz's Choice", "Cast into Shadow", "Felrauk's Choice", "Blazing Salvo", "Ruinous Burst", "Sear", "Soldrain Smithing", "Volatility", "Fire Conjuring", "Touch of Force", "Calibrate", "Crack the Earth", "Pause for Reflection", "Precision Plunge", "Touch of Battle", "Earth Conjuring", "Humbug Nest", "Turn Back Time", "Deafening Word", "Ensnare", "Fearless Crescendo", "Touch of Purity", "Wind Conjuring", "Resounding Shockwave", "Transpose", "Formbend", "Provoke the Dragons", "Biting Winds", "Water Conjuring", "Touch of Wild", "Condemn", "Contaminating Ritual", "Urgent Missive", "Defile", "Touch of Resilience", "Pack Conjuring", "Triumphant Return", "Essence Feast", "Creation Chant", "Display of Creation", "Destruction Chant", "Display of Destruction", "Menace Chant", "Display of Menace", "Purpose Chant", "Display of Purpose", "Tradition Chant", "Display of Tradition", "Rage", "Unity Within", "Chemical Rounds", "Fire Etchings", "From Within", "Relentless Pursuit", "Begin Anew", "Pillage", "Forget", "From Below", "Time Etchings", "Rebuild", "Bring to Justice", "Bubble Shield", "From Anguish", "Justice Etchings", "Audacious Ruse", "Enter the Monastery", "Equalize", "From Elements", "Primal Etchings", "Reflection", "Shatter", "Frost", "Reshape", "Steam Blast", "Valiant Leap", "Mobilization", "Natural Order", "Shared Vision", "Abominate", "From Beyond", "Shadow Etchings", "Curtain Call", "At Any Cost", "Bartholo's Keepsake", "Grave Robbery", "Grisly Contest", "Midnight Hunt", "Beseech the Throne", "Friends in Low Places", "Know When to Hold 'em", "Just Desserts", "Deleph's Awakening", "Celebration", "Quarry", "Kindle", "Vision of Austerity", "Stranger's Mark", "Bore", "Hailstorm", "Equivocate", "Signal Flare", "Last Chance", "Shakedown", "Casualties of the Cause", "Desecrate", "Blood Hunt", "Cinder Clutch", "Linrei's Protection", "Eremot's Designs", "Shattered Hopes", "Declare Victory", "Avoid Death", "Battle at the Gates", "Jekk's Takedown", "Silverblade Intrusion", "Open Contract", "Spire Shadows", "The Nightmare Gates", "Dazzle", "Turn Down", "Fall of House Roa", "D'Angolo Arson", "Send an Agent"];
+
+        function SpeakingCircle() {
+            var randomNumbers = [];
+            var cardDivs = document.querySelectorAll(".card");
+            while (randomNumbers.length < 9) {
+                var randomNum = Math.floor(Math.random() * cards.length) + 1;
+                if (randomNumbers.indexOf(randomNum) == -1) {
+                    randomNumbers.push(randomNum);
+                }
+            }
+            for (let i = 0; i < 9; i++) {
+                let cardUrl = cards[randomNumbers[i]].replace(/ /g, "_");
+                cardDivs[i].style.backgroundImage = "url(\"https://cards.eternalwarcry.com/cards/full/" + cardUrl + ".png" + "\")";
+                cardDivs[i].style.opacity = "1";
+            }
+        }
+
+        function ChooseCard(y, x) {
+            let parent = document.querySelector(".invoke:nth-of-type(" + y + ")");
+            for (let i = 0; i < 3; i++) {
+                parent.children[i].style.opacity = "1";
+                if (i != x - 1) {
+                    parent.children[i].style.opacity = ".4";
+                }
+            }
+        }
+
+    </script>
+</head>
+
+<body onload="SpeakingCircle();">
+
+    <div class="invoke">
+        <div class="card" onclick="ChooseCard(1, 1);"></div>
+        <div class="card" onclick="ChooseCard(1, 2);"></div>
+        <div class="card" onclick="ChooseCard(1, 3);"></div>
+    </div>
+    <div class="invoke">
+        <div class="card" onclick="ChooseCard(2, 1);"></div>
+        <div class="card" onclick="ChooseCard(2, 2);"></div>
+        <div class="card" onclick="ChooseCard(2, 3);"></div>
+    </div>
+    <div class="invoke">
+        <div class="card" onclick="ChooseCard(3, 1);"></div>
+        <div class="card" onclick="ChooseCard(3, 2);"></div>
+        <div class="card" onclick="ChooseCard(3, 3);"></div>
+        <div class="button" onclick="SpeakingCircle();">
+            Reroll
+        </div>
+    </div>
+
+</body>
